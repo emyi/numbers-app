@@ -1,0 +1,71 @@
+<div class="container">
+     
+     <div class="row">
+          <h4>Add Brand</h4>
+          <form ng-submit="performances.addBrand()">
+               <div class="row">
+                    <div class="col-md-3">
+                         <input class="form-control" type="text" ng-model="performances.brand" placeholder="Brand Name">
+                         
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="col-md-3">
+                         <input type="submit" class="btn btn-primary" value="Post">
+                         
+                    </div>
+                    
+               </div>
+                    
+
+          </form>
+          
+     </div>
+     <div class="row">
+          <h4>Add Product</h4>
+          <form ng-submit="performances.addProduct()">
+
+               <div class="row">
+                    <div class="col-md-3">
+                         <select class="form-control" name="brands" id="brands" ng-model="selectedBrand.ID" ng-change="checking()" ng-options="x.ID as x.BrandName for x in brandData"></select>
+                         
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="col-md-3">
+                         <input class="form-control" type="text" ng-model="performances.product" placeholder="Product Name">
+                         
+                    </div>
+                    
+               </div>
+               <div class="row">
+                    <div class="col-md-3">
+                         <input type="submit" class="btn btn-primary" value="Post">
+                         
+                    </div>
+               </div>
+
+          </form>
+     </div>
+     <div class="row">
+          <h4>Add Network</h4>
+          <form ng-submit="performances.addNetwork()">
+               <div class="row">
+                    <div class="col-md-3">
+                         <input class="form-control" type="text" ng-model="performances.network" placeholder="Network Name">
+                         
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="col-md-3">
+                         <input type="submit" class="btn btn-primary" value="Post">
+                         
+                    </div>
+                    
+               </div>
+
+                    
+               
+          </form>
+     </div>
+</div>

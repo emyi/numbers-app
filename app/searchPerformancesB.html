@@ -1,0 +1,269 @@
+<div class="container">
+	
+	<form ng-submit="searchPerformance()">
+		<div class="row">
+			<h4>Select Brand(s): <span class="all-option pull-right" ng-click="clearChecks(brandsList)">Clear All</span><span class="all-option pull-right" ng-click="checkAll(brandsList)">Select All</span></h4>
+			
+			<label ng-repeat="x in brandsList" for="b{{x.BrandName}}" class="col-md-3">
+				<input type="checkbox" name="brand" value="{{x.ID}}" id="b{{x.BrandName}}" ng-model="x.Checked" ng-change="getProductForBrandSearch()">
+
+				<span>{{x.BrandName}}</span>
+			</label>
+		</div>
+		<div class="row">
+			<h4>Select Product(s): <span class="all-option pull-right" ng-click="clearChecks(productsListInSearch)">Clear All</span><span class="all-option pull-right" ng-click="checkAll(productsListInSearch)">Select All</span></h4>
+			<label ng-repeat="product in productsListInSearch" for="pr{{product.Name}}" class="col-md-3">
+				<input type="checkbox" name="product" value="{{product.ID}}" id="pr{{product.Name}}" ng-model="product.Checked">
+				<span>{{product.Name}}</span>
+			</label>
+		</div>
+		
+		<div class="row">
+
+			<h4>Select Network(s): <span class="all-option pull-right" ng-click="clearChecks(networksList)">Clear All</span><span class="all-option pull-right" ng-click="checkAll(networksList)">Select All</span></h4>
+			<label ng-repeat="network in networksList" for="n{{network.Name}}" class="col-md-3">
+				<input type="checkbox" value="{{network.ID}}" id="n{{network.Name}}" ng-model="network.Checked">
+				<span>{{network.Name}}</span>
+			</label>
+			<!-- <label ng-repeat="network in networksList" for="n{{network.Name}}" class="col-md-3">
+				<input type="checkbox" value="{{network.ID}}" id="n{{network.Name}}" ng-model="networks[network.Name]">
+				<span>{{network.Name}}</span>
+			</label> -->
+		</div>
+		<div class="row">
+			<h4>Select Device(s): <span class="all-option pull-right" ng-click="clearChecks(deviceList)">Clear All</span><span class="all-option pull-right" ng-click="checkAll(deviceList)">Select All</span></h4>
+			<label ng-repeat="device in deviceList" for="d{{device.Name}}" class="col-md-3">
+				<input type="checkbox" value="{{device.Name}}" id="d{{device.Name}}" ng-model="device.Checked">
+				<span>{{device.Name}}</span>
+			</label>
+			<!-- <label ng-repeat="device in deviceList" for="d{{device.Name}}" class="col-md-3">
+				<input type="checkbox" value="{{device.Name}}" id="d{{device.Name}}" ng-model="devices[device.Name]">
+				<span>{{device.Name}}</span>
+			</label> -->
+		</div>
+		<div class="row date-search-container">
+			<div class="col-md-5">
+				<span>From:</span>
+
+				<!-- <input type="date" ng-model="firstDay.value"> -->
+				<div class="input-group date" ng-init="datePicker()">
+				  <input ng-model="firstDay.value" type="text" class="form-control" required><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+				</div>
+			</div>
+			<div class="col-md-5">
+				<span>To:</span>
+				<!-- <input type="date" ng-model="lastDay.value"> -->
+				<div class="input-group date" ng-init="datePicker()">
+				  <input ng-model="lastDay.value" type="text" class="form-control" required><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+				</div>
+				
+			</div>
+			<div class="col-md-2" style="margin-top: 20px;">
+				<input type="submit" class="btn btn-primary btn-search" value="Search" ng-click="showSearch=true;">
+				
+			</div>
+
+		</div>
+	</form>
+
+
+	<div class="row">
+		<div class="col-md-8">
+			
+			<h2>Search Results</h2>
+			<table class="table search-results" style="display: inline-block; width: initial; max-width: initial;">
+				<tr>
+					<th>Date</th>
+					<th>Cost</th>
+					<th>Revenue</th>
+					<th>Leads</th>
+					<th>CPA</th>
+					<th>ROI</th>
+				</tr>
+				<tr>
+					<td>Totals:</td>
+					<td>{{totalCost | currency}}</td>
+					<td>{{totalRevenue | currency}}</td>
+					<td>{{totalLeads}}</td>
+					<td>{{totalCost/totalLeads | number:2}}</td>
+					<td>{{(totalRevenue/totalCost)*100 | number:2}}%</td>
+				</tr>
+				<tr ng-repeat="x in filledDate | orderBy:'Date'" class="tableData">
+					<!-- <td>Performance ID: {{x.ID}}</td> -->
+					<td>{{x.Date}}</td>
+					<td>{{x.Cost| currency}}</td>
+					<td>{{x.Revenue| currency}}</td>
+					<td>{{x.Leads}}</td>
+					<td>{{x.Cost/x.Leads | number:2}}</td>
+					<td>{{(x.Revenue/x.Cost)*100 | number:2}}%</td>
+					<!-- <div pie-chart style="width:100%;height:460px;" apd="apd"></div> -->
+
+				</tr>
+			</table>
+		   <table class="table search-results" style="display: inline-block; width: initial; max-width: initial;">
+				<tr>
+					<th>Cart Revenue</th>
+					<th>Cart ROI</th>
+				</tr>
+				<tr>
+					<td>{{totalCartRevenue | currency}}</td>
+					<td>{{cartROI | number:2}}%</td>
+				</tr>
+				<tr ng-repeat="x in filledCartDate" class="tableData">
+					<td>{{x.Revenue | currency}}</td>
+					<td>{{x.ROI | number:2}}%</td>
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-4">
+			<!-- <button ng-click="clearCharts();" class="btn">Clear Charts</button> -->
+			<nvd3 options="optionsBrand" data="apb"></nvd3>
+			<nvd3 options="optionsProduct" data="app"></nvd3>
+			<nvd3 options="optionsNetwork" data="apn"></nvd3>
+			<nvd3 options="optionsDevice" data="apDevice"></nvd3>
+		</div>
+	</div>
+	<!-- <div class="row" ng-show="showSearch">
+		<div class="col-md-12">
+			<h2>Search Results</h2>
+			<table class="table">
+				<tr>
+					<th>Date</th>
+					<th>Product</th>
+					<th>Network</th>
+					<th>Cost</th>
+					<th>Revenue</th>
+					<th>Leads</th>
+					<th>ROI</th>
+					<th>Device</th>
+				</tr>
+				<tr ng-repeat="x in performanceData | orderBy:'Date' | dateRange : from_date : to_date.value" class="tableData">
+					<td>{{x.Date}}</td>
+					<td>{{x.ProductName}}</td>
+					<td>{{x.NetworkName}}</td>
+					<td>{{x.Cost| currency}}</td>
+					<td>{{x.Revenue| currency}}</td>
+					<td>{{x.Leads}}</td>
+					<td>{{(x.Revenue/x.Cost)*100 | number:2}}%</td>
+					<td>{{x.Device}}</td>
+					<td class="btn btn-primary" data-toggle="modal" data-target=".update-modal" ng-click="tempPush(x.ID, x.ProductID, x.NetworkID, x.Date, x.Cost, x.Revenue, x.Leads, x.Device); getProduct(); getNetwork()">Update</td>
+					<td class="btn btn-primary" ng-click="deletePerformance(x)">Delete</td>
+				</tr>
+			</table>
+		   
+		</div>
+	</div> -->
+	<!-- <div class="row" ng-if="networksList[0].Checked">
+		<div class="col-md-12">
+			<h2>Content.ad</h2>
+			<table class="table">
+				<tr>
+					<th>Product</th>
+					<th>Network</th>
+					<th>Date</th>
+					<th>Cost</th>
+					<th>Revenue</th>
+					<th>Leads</th>
+					<th>Device</th>
+				</tr>
+				<tr ng-repeat="x in performanceData | orderBy:'Date' | dateRange : from_date : to_date.value | performanceNetwork : '1' | filter:deviceFilter" class="tableData">
+					<td>{{x.ProductName}}</td>
+					<td>{{x.NetworkName}}</td>
+					<td>{{x.Date}}</td>
+					<td>{{x.Cost| currency}}</td>
+					<td>{{x.Revenue| currency}}</td>
+					<td>{{x.Leads}}</td>
+					<td>{{(x.Revenue/x.Cost)*100 | number:2}}%</td>
+					<td>{{x.Device}}</td>
+					<td class="btn btn-primary" data-toggle="modal" data-target=".update-modal" ng-click="tempPush(x.ID, x.ProductID, x.NetworkID, x.Date, x.Cost, x.Revenue, x.Leads, x.Device); getProduct(); getNetwork()">Update</td>
+					<td class="btn btn-primary" ng-click="deletePerformance(x)">Delete</td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+	<div class="row" ng-if="networksList[1].Checked">
+		<div class="col-md-12">
+			<h2>Taboola</h2>
+			<table class="table">
+				<tr>
+					<th>Product</th>
+					<th>Network</th>
+					<th>Date</th>
+					<th>Cost</th>
+					<th>Revenue</th>
+					<th>Leads</th>
+					<th>Device</th>
+				</tr>
+				<tr ng-repeat="x in performanceData | orderBy:'Date' | dateRange : from_date : to_date.value | performanceNetwork : '2' | filter:deviceFilter" class="tableData">
+					<td>{{x.ProductName}}</td>
+					<td>{{x.NetworkName}}</td>
+					<td>{{x.Date}}</td>
+					<td>{{x.Cost| currency}}</td>
+					<td>{{x.Revenue| currency}}</td>
+					<td>{{x.Leads}}</td>
+					<td>{{(x.Revenue/x.Cost)*100 | number:2}}%</td>
+					<td>{{x.Device}}</td>
+					<td class="btn btn-primary" data-toggle="modal" data-target=".update-modal" ng-click="tempPush(x.ID, x.ProductID, x.NetworkID, x.Date, x.Cost, x.Revenue, x.Leads, x.Device); getProduct(); getNetwork()">Update</td>
+					<td class="btn btn-primary" ng-click="deletePerformance(x)">Delete</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="row" ng-if="networksList[2].Checked">
+		<div class="col-md-12">
+			<h2>Outbrain</h2>
+		    <table class="table">
+		    	<tr>
+		    		<th>Product</th>
+		    		<th>Network</th>
+		    		<th>Date</th>
+		    		<th>Cost</th>
+		    		<th>Revenue</th>
+		    		<th>Leads</th>
+		    		<th>Device</th>
+		    	</tr>
+		    	<tr ng-repeat="x in performanceData | orderBy:'Date' | dateRange : from_date : to_date.value | performanceNetwork : '3' | filter:deviceFilter" class="tableData">
+		    		<td>{{x.ProductName}}</td>
+		    		<td>{{x.NetworkName}}</td>
+		    		<td>{{x.Date}}</td>
+		    		<td>{{x.Cost| currency}}</td>
+		    		<td>{{x.Revenue| currency}}</td>
+		    		<td>{{x.Leads}}</td>
+		    		<td>{{(x.Revenue/x.Cost)*100 | number:2}}%</td>
+		    		<td>{{x.Device}}</td>
+		    		<td class="btn btn-primary" data-toggle="modal" data-target=".update-modal" ng-click="tempPush(x.ID, x.ProductID, x.NetworkID, x.Date, x.Cost, x.Revenue, x.Leads, x.Device); getProduct(); getNetwork()">Update</td>
+		    		<td class="btn btn-primary" ng-click="deletePerformance(x)">Delete</td>
+		    	</tr>
+		    </table>
+		</div>
+	</div>
+	<div class="row" ng-if="networksList[3].Checked">
+		<div class="col-md-12">
+			<h2>Lockerdome</h2>
+		    <table class="table">
+				<tr>
+					<th>Product</th>
+					<th>Network</th>
+					<th>Date</th>
+					<th>Cost</th>
+					<th>Revenue</th>
+					<th>Leads</th>
+					<th>Device</th>
+				</tr>
+				<tr ng-repeat="x in performanceData | orderBy:'Date' | dateRange : from_date : to_date.value | performanceNetwork : '4' | filter:deviceFilter" class="tableData">
+					<td>{{x.ProductName}}</td>
+					<td>{{x.NetworkName}}</td>
+					<td>{{x.Date}}</td>
+					<td>{{x.Cost| currency}}</td>
+					<td>{{x.Revenue| currency}}</td>
+					<td>{{x.Leads}}</td>
+					<td>{{(x.Revenue/x.Cost)*100 | number:2}}%</td>
+					<td>{{x.Device}}</td>
+					<td class="btn btn-primary" data-toggle="modal" data-target=".update-modal" ng-click="tempPush(x.ID, x.ProductID, x.NetworkID, x.Date, x.Cost, x.Revenue, x.Leads, x.Device); getProduct(); getNetwork()">Update</td>
+					<td class="btn btn-primary" ng-click="deletePerformance(x)">Delete</td>
+				</tr>
+			</table>
+		</div>
+	</div> -->
+</div>

@@ -1,0 +1,39 @@
+<div ng-controller="PerformancesController as performances" ng-init="getBrand(); getProduct(); getNetwork(); searchYesterdayPerformance(); searchMonthlyPerformance(); selectedBrand.ID=2;">
+     <div id="loadingContainer">
+          <img src="images/loading.gif" alt="">
+     </div>
+     <div class="container">
+          <div class="row">
+               <div class="alert alert-success text-center alert-success-div" role="alert" style="display: none">
+                    <p></p>
+               </div>
+               <div class="alert alert-danger text-center alert-danger-div" role="alert" style="display: none">
+                    <p></p>
+               </div>
+          </div>
+          <div class="row">
+               <div class="col-md-2 col-md-offset-2 ta-center">
+                    <a class="nav active" ng-click="getBrand(); getProduct(); getNetwork(); searchYesterdayPerformance(); searchMonthlyPerformance(); apd=[]; apb = []; apb2 = []; app = []; apn = []; apDevice = []; cpd = []; cpb = []; cpb2 = []; dailyCpd = []; filledDateBrand = []; filledCartBrand = []; filledCartDate = []; filledDate = []; totalCost = 0; totalLeads = 0; totalRevenue = 0; totalCartRevenue = 0; cartROI = 0;" ui-sref="home">Home</a>
+               </div>
+               <div class="col-md-2 ta-center">
+                    <a class="nav" ng-click="getBrand(); getProduct(); getNetwork(); apd=[]; apb = []; apb2 = []; app = []; apn = []; apDevice = []; cpd = []; cpb = []; cpb2 = []; dailyCpd = []; filledDateBrand = []; filledCartBrand = []; filledCartDate = []; filledDate = []; totalCost = 0; totalLeads = 0; totalRevenue = 0; totalCartRevenue = 0; cartROI = 0; selectedDevice.Name='Desktop';" ui-sref="updatePerformances">Update Performances</a>
+               </div>
+               <div class="col-md-2 ta-center">
+                    <a class="nav sp" ng-click="getProduct(); getNetwork(); getBrand(); productsInBrand=[]; apd=[]; apb = []; apb2 = []; app = []; apn = []; apDevice = []; cpd = []; cpb = []; cpb2 = []; dailyCpd = []; filledDateBrand = []; filledCartBrand = []; filledCartDate = []; filledDate = []; totalCost = 0; totalLeads = 0; totalRevenue = 0; totalCartRevenue = 0; cartROI = 0; selectedBrand.ID=2;" ui-sref="searchPerformances">Search Performances</a>
+               </div>
+               
+               <div class="col-md-2 ta-center">
+                    <a class="nav" ng-click="getBrand(); apd=[]; apb = []; apb2 = []; app = []; apn = []; apDevice = []; cpd = []; cpb = []; cpb2 = []; dailyCpd = []; filledDateBrand = []; filledCartBrand = []; filledCartDate = []; filledDate = []; totalCost = 0; totalLeads = 0; totalRevenue = 0; totalCartRevenue = 0; cartROI = 0;" ui-sref="addBrandProduct">Add Brand/Product/Network</a>
+               </div>
+          </div>
+          
+     </div>
+
+     <div ui-view="home" id="homeTemplate"></div>
+     <!-- <div ui-view="addPerformance"></div> -->
+     <div ui-view="searchPerformances" id="searchPerformanceTemplate"></div>
+     <div ui-view="addBrandProduct" id="addBrandProductTemplate"></div>
+     <div ui-view="updatePerformances" id="updatePerformanceTemplate"></div>
+     <!-- <div ui-view="searchCartPerformances" id="searchCartPerformanceTemplate"></div> -->
+     
+</div>

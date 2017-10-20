@@ -1,0 +1,33 @@
+<div class="container">
+	
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table search-results">
+				<tr>
+					<th>Date</th>
+					<th>Product</th>
+					<th>Network</th>
+					<th>Cost</th>
+					<th>Revenue</th>
+					<th>Leads</th>
+					<th>ROI</th>
+					<!-- <th>Device</th> -->
+				</tr>
+				<tr ng-repeat="x in performanceData | orderBy:'Date'" class="tableData">
+					<!-- <td>Performance ID: {{x.ID}}</td> -->
+					<td>{{x.Date}}</td>
+					<td>{{x.ProductName}}</td>
+					<td>{{x.NetworkName}}</td>
+					<td>{{x.Cost| currency}}</td>
+					<td>{{x.Revenue| currency}}</td>
+					<td>{{x.Leads}}</td>
+					<td>{{(x.Revenue/x.Cost)*100 | number:2}}%</td>
+					<!-- <td>{{x.Device}}</td> -->
+					<td class="btn btn-primary" data-toggle="modal" data-target=".update-modal" ng-click="tempPush(x.ID, x.ProductID, x.NetworkID, x.Date, x.Cost, x.Revenue, x.Leads, x.Device); getProduct(); getNetwork()">Update</td>
+					<td class="btn btn-primary" ng-click="deletePerformance(x)">Delete</td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+</div>

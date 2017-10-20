@@ -1,0 +1,30 @@
+<div ng-controller="PerformancesController as performances" ng-init="getBrand(); getProduct(); getNetwork(); searchYesterdayPerformance(); searchMonthlyPerformance();">
+     <div id="loadingContainer">
+          <img src="images/loading.gif" alt="">
+     </div>
+     <div class="container">
+          
+          <div class="row">
+               <div class="alert alert-success text-center alert-success-div" role="alert" style="display: none">
+                    <p></p>
+               </div>
+               <div class="alert alert-danger text-center alert-danger-div" role="alert" style="display: none">
+                    <p></p>
+               </div>
+          </div>
+          <div class="row">
+               <div class="col-md-2 col-md-offset-2 ta-center">
+                    <a class="nav active" ng-click="getBrand(); getProduct(); getNetwork(); searchYesterdayPerformance(); searchMonthlyPerformance(); apd=[]; apb = []; app = []; apn = []; apDevice = []; cpd = []; cpb = []; dailyCpd = []; filledCartDate = []; filledDate = []; totalCost = 0; totalLeads = 0; totalRevenue = 0; totalCartRevenue = 0; cartROI = 0;" ui-sref="homeB">Home</a>
+               </div>
+               <div class="col-md-2 ta-center">
+                    <a class="nav sp" ng-click="getProduct(); getNetwork(); getBrand(); productsInBrand=[]; apd=[]; apb = []; app = []; apn = []; apDevice = []; cpd = []; cpb = []; dailyCpd = []; filledCartDate = []; filledDate = []; totalCost = 0; totalLeads = 0; totalRevenue = 0; totalCartRevenue = 0; cartROI = 0;" ui-sref="searchPerformancesB">Search Performances</a>
+               </div>
+
+          </div>
+          
+     </div>
+
+     <div ui-view="homeB" id="homeTemplate"></div>
+     <div ui-view="searchPerformancesB" id="searchPerformanceTemplate"></div>
+     
+</div>

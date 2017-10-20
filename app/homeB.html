@@ -1,0 +1,130 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">
+			<h4>Yesterdays Data</h4>
+			<table class="table">
+				<tr>
+					<th class="pointer" ng-click="yesterdaySort('BrandName')">Brand</th>
+					<th class="pointer" ng-click="yesterdaySort('Cost')">Cost</th>
+					<th class="pointer" ng-click="yesterdaySort('Revenue')">Cart Revenue</th>
+
+					<th class="pointer" ng-click="yesterdaySort('Revenue/Cost')">Cart ROI</th>
+				</tr>
+				<tr>
+					<td>Totals:</td>
+					<td>{{yesterdayTotalCost | currency}}</td>
+					<td>{{yesterdayTotalCartRevenue | currency}}</td>
+
+					<td>{{(yesterdayTotalCartRevenue/yesterdayTotalCost)*100 | number:2}}%</td>
+				</tr>
+				<tr ng-repeat="x in yesterdayCpb | orderBy:orderPropertyYesterday" class="tableData">
+					<!-- <td>Performance ID: {{x.ID}}</td> -->
+					<td><a class="transfer" ng-click="transferViewYesterdayBrand(x.BrandName);">{{x.BrandName}}</a></td>
+					<td>{{x.Cost| currency}}</td>
+					<td>{{x.Revenue| currency}}</td>
+
+					<td>{{(x.Revenue/x.Cost)*100 | number:2}}%</td>
+					<!-- <div pie-chart style="width:100%;height:460px;" apd="apd"></div> -->
+
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4" style="white-space: nowrap; overflow: scroll; height: 305px;">
+			<h4>Monthly Cart Data</h4>
+			<table class="table">
+				<tr>
+					<th class="pointer" ng-click="monthlyCartSort('BrandName')">Name</th>
+					<th class="pointer" ng-click="monthlyCartSort('Cost')">Cost</th>
+					<th class="pointer" ng-click="monthlyCartSort('Revenue')">Cart Revenue</th>
+	<!-- 				<th>Leads</th>
+					<th>CPA</th> -->
+					<th class="pointer" ng-click="monthlyCartSort('Revenue/Cost')">Cart ROI</th>
+				</tr>
+				<tr>
+					<td>Totals:</td>
+					<td>{{monthlyBrandTotalCost | currency}}</td>
+					<td>{{monthlyTotalCartRevenue | currency}}</td>
+					<!-- <td>{{monthlyBrandTotalLeads}}</td>
+					<td>{{monthlyBrandTotalCost/monthlyBrandTotalLeads | number:2}}</td> -->
+					<td>{{monthlyCartROI | number:2}}%</td>
+				</tr>
+				<tr ng-repeat="x in monthlyCpb | orderBy:orderPropertyMonthlyCart" class="tableData">
+					<!-- <td>Performance ID: {{x.ID}}</td> -->
+					<td><a class="transfer" ng-click="transferViewMonthlyBrand(x.BrandName);">{{x.BrandName}}</a></td>
+					<td>{{x.Cost| currency}}</td>
+					<td>{{x.Revenue| currency}}</td>
+					<!-- <td>{{x.Leads}}</td>
+					<td>{{x.Cost/x.Leads | number:2}}</td> -->
+					<td>{{(x.Revenue/x.Cost)*100 | number:2}}%</td>
+					<!-- <div pie-chart style="width:100%;height:460px;" apd="apd"></div> -->
+				</tr>
+			</table>
+		</div>
+
+		<div class="col-md-4" style="white-space: nowrap; overflow: scroll; height: 305px;">
+			<h4>Monthly Products Data</h4>
+			<table class="table">
+				<tr>
+					<th class="pointer" ng-click="monthlyProductSort('ProductName')">Name</th>
+					<th class="pointer" ng-click="monthlyProductSort('Cost')">Cost</th>
+					<th class="pointer" ng-click="monthlyProductSort('Revenue')">Revenue</th>
+	<!-- 				<th>Leads</th>
+					<th>CPA</th> -->
+					<th class="pointer" ng-click="monthlyProductSort('Revenue/Cost')">ROI</th>
+				</tr>
+				<tr>
+					<td>Totals:</td>
+					<td>{{monthlyProductTotalCost | currency}}</td>
+					<td>{{monthlyProductTotalRevenue | currency}}</td>
+					<!-- <td>{{monthlyProductTotalLeads}}</td>
+					<td>{{monthlyProductTotalCost/monthlyProductTotalLeads | number:2}}</td> -->
+					<td>{{(monthlyProductTotalRevenue/monthlyProductTotalCost)*100 | number:2}}%</td>
+				</tr>
+				<tr ng-repeat="x in monthlyApp | orderBy:orderPropertyMonthlyProduct" class="tableData">
+					<!-- <td>Performance ID: {{x.ID}}</td> -->
+					<td><a class="transfer" ng-click="transferViewMonthlyProduct(x.ProductName);">{{x.ProductName}}</a></td>
+					<td>{{x.Cost| currency}}</td>
+					<td>{{x.Revenue| currency}}</td>
+					<!-- <td>{{x.Leads}}</td>
+					<td>{{x.Cost/x.Leads | number:2}}</td> -->
+					<td>{{(x.Revenue/x.Cost)*100 | number:2}}%</td>
+					<!-- <div pie-chart style="width:100%;height:460px;" apd="apd"></div> -->
+				</tr>
+			</table>
+		</div>
+		<div class="col-md-4" style="white-space: nowrap; overflow: scroll; height: 305px;">
+			<h4>Monthly Networks Data</h4>
+			<table class="table">
+				<tr>
+					<th class="pointer" ng-click="monthlyNetworkSort('NetworkName')">Name</th>
+					<th class="pointer" ng-click="monthlyNetworkSort('Cost')">Cost</th>
+					<th class="pointer" ng-click="monthlyNetworkSort('Revenue')">Revenue</th>
+	<!-- 				<th>Leads</th>
+					<th>CPA</th> -->
+					<th class="pointer" ng-click="monthlyNetworkSort('Revenue/Cost')">ROI</th>
+				</tr>
+				<tr>
+					<td>Totals:</td>
+					<td>{{monthlyNetworkTotalCost | currency}}</td>
+					<td>{{monthlyNetworkTotalRevenue | currency}}</td>
+					<!-- <td>{{monthlyNetworkTotalLeads}}</td>
+					<td>{{monthlyNetworkTotalCost/monthlyNetworkTotalLeads | number:2}}</td> -->
+					<td>{{(monthlyNetworkTotalRevenue/monthlyNetworkTotalCost)*100 | number:2}}%</td>
+				</tr>
+				<tr ng-repeat="x in monthlyApn | orderBy:orderPropertyMonthlyNetwork" class="tableData">
+					<!-- <td>Performance ID: {{x.ID}}</td> -->
+					<td><a class="transfer" ng-click="transferViewMonthlyNetwork(x.NetworkName);">{{x.NetworkName}}</a></td>
+					<td>{{x.Cost| currency}}</td>
+					<td>{{x.Revenue| currency}}</td>
+					<!-- <td>{{x.Leads}}</td>
+					<td>{{x.Cost/x.Leads | number:2}}</td> -->
+					<td>{{(x.Revenue/x.Cost)*100 | number:2}}%</td>
+					<!-- <div pie-chart style="width:100%;height:460px;" apd="apd"></div> -->
+				</tr>
+			</table>
+		</div>
+	</div>
+	
+</div>
